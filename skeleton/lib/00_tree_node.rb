@@ -52,10 +52,10 @@ class PolyTreeNode
       if cur_node.value == target_value
         return cur_node
       else
-        queue += cur_node.children
+        queue.concat(cur_node.children)
       end
     end
-    
+
     nil
   end
 end
