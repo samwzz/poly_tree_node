@@ -4,9 +4,9 @@ require 'byebug'
 class KnightPathFinder
   attr_reader :move_tree
   def initialize(starting_pos)
-    @starting_pos = starting_pos
-    @visited_positions = [starting_pos]
-    @move_tree = build_move_tree
+    @starting_node = PolyTreeNode.new(starting_pos)
+    @visited_positions = [@starting_node.value]
+    build_move_tree
   end
 
   def self.valid_moves(pos)
@@ -31,9 +31,7 @@ class KnightPathFinder
   end
 
   def build_move_tree
-    starting_node = PolyTreeNode.new(@starting_pos)
-    queue = [starting_node]
-    tree = {}
+    queue = [@starting_node]
     until queue.empty?
       cur_node = queue.shift
       new_moves = new_move_positions(cur_node.value)
@@ -42,13 +40,22 @@ class KnightPathFinder
         queue.push(new_node)
         cur_node.add_child(new_node)
       end
-      tree[cur_node] = cur_node.children
     end
-
-    tree
   end
 
-  def find_path
+  def find_path(end_pos)
+    end_node = @starting_node.dfs(end_pos)
+    trace_path_back(end_node)
+  end
 
+  def trace_path_back(end_node)
+    path = []
+    cur_node = end_node
+    until cur_node.parent.nil?
+      path.push(cur_node.value)
+      cur_node = cur_node.parent
+    end
+    path << @starting_node.value
+    path.reverse
   end
 end
