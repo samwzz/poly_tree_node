@@ -1,5 +1,5 @@
 # DON'T EDIT ME!
-
+require 'byebug'
 class Board
   attr_reader :rows
 
@@ -130,7 +130,6 @@ class TicTacToe
     loop do
       current_player = self.players[self.turn]
       pos = current_player.move(self, self.turn)
-
       break if place_mark(pos, self.turn)
     end
 

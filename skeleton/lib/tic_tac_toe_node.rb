@@ -1,5 +1,5 @@
 require_relative 'tic_tac_toe'
-require 'byebug'
+
 class TicTacToeNode
   attr_reader :board, :next_mover_mark, :prev_move_pos
   def initialize(board, next_mover_mark, prev_move_pos = nil)
@@ -51,7 +51,6 @@ class TicTacToeNode
 
 
   def winning_node?(evaluator)
-    # debugger
     if @board.over?
       return @board.winner == evaluator ? true : false
     end
