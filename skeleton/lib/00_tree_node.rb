@@ -14,4 +14,9 @@ class PolyTreeNode
   def value
     @value
   end
+
+  def parent=(parent)
+    @parent = parent
+    parent.children.push(self) unless parent.nil?
+  end
 end
