@@ -15,8 +15,11 @@ class PolyTreeNode
     @value
   end
 
-  def parent=(parent)
-    @parent = parent
-    parent.children.push(self) unless parent.nil?
+  def parent=(new_parent)
+    unless new_parent == parent
+      new_parent.children.push(self) unless new_parent.nil?
+      parent.children.delete(self) unless parent.nil?
+      @parent = new_parent
+    end
   end
 end
